@@ -1,0 +1,15 @@
+<body>
+    <h1>Chat Page</h1>
+    Connectino
+<script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket= io()
+        socket.on("msg",(data)=>{
+        console.log(data)
+        p = document.createElement('p')
+        p.innerText= data
+        document.body.append(p)
+        })
+    </script>
+</body>
+</html>

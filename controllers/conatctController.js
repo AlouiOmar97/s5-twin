@@ -7,5 +7,5 @@ router.get("/add/:FullName/:Phone",validation, contactService.add)
 router.get("/list",list)
 router.put("/update/:id",contactService.updateContact)
 router.delete("/delete/:id",contactService.deleteContact)
-
+router.get('/test',(req,res)=>{res.render('chat')})
 module.exports= router

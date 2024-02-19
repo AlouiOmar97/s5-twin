@@ -1,0 +1,11 @@
+var express= require("express")
+var router=express.Router()
+var chatService=require("../services/chatService")
+var validation = require('../middleware/validation')
+var {list}=require("../services/chatService")
+router.get("/add/:Content", chatService.add)
+router.get("/list",list)
+router.put("/update/:id",chatService.updateChat)
+router.delete("/delete/:id",chatService.deleteChat)
+router.get('/test',(req,res)=>{res.render('chat')})
+module.exports= router
