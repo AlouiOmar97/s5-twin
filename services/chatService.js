@@ -5,6 +5,7 @@ function socketIO(server){
     io.on('connection',(socket)=>{
         console.log('user connected');
         socket.emit("msg","A new user is connected")
+    //test
     })
 }
 
