@@ -4,8 +4,29 @@ function socketIO(server){
     const io=  socket(server)
     io.on('connection',(socket)=>{
         console.log('user connected');
-        socket.emit("msg","A new user is connected")
+        socket.broadcast.emit("msg","A new user is connected")
     //test
+        socket.on("sendMsg",async function (data){
+           console.log(data);
+             io.emit("msg",data.username+ ' : '+data.message)
+           await  new chat({
+                Content:data.message
+            }).save((err,data)=>{
+                if(err){
+                console.log(err);}else{
+                console.log(data);
+                }
+                
+            })
+            })
+        socket.on("isTyping",(data)=>{
+            socket.broadcast.emit("msg",data)
+        })
+
+        socket.on("disconnect",()=>{
+            io.emit("msg","user is disconnected")
+
+        })
     })
 }
 
@@ -22,6 +43,8 @@ function add(req,res,next){
     
 
 }
+
+
 
 list=(req,res,next)=>{
     chat.find((err,data)=>{

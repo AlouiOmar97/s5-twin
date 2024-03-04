@@ -1,0 +1,54 @@
+<body>
+    <h1>Partie Page</h1>
+     <br>
+    <label for="msg">Nom Partie :</label>
+    <input type="text" id="nom" /><br>
+    <label for="msg">ID Joueur 1 :</label>
+    <input type="text"  id="id1" /><br>
+    <label for="msg">ID Joueur 2 :</label>
+    <input type="text"  id="id2" /><br>
+    <input type="submit" onclick="sendPartie()" value="Envoyer"/>
+    <input type="submit" onclick="afficherStat()" value="Afficher Stat"/>
+<script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket= io()
+        function afficherStat(){
+            var id1= document.getElementById("id1").value
+            var id2= document.getElementById("id2").value
+            data ={ id1 , id2}
+            console.log(data)
+            socket.emit("afficherStat",data)
+        }
+        function sendPartie(){
+            var nom= document.getElementById("nom").value
+            var id1= document.getElementById("id1").value
+            var id2= document.getElementById("id2").value
+            data ={nom , id1 , id2}
+            console.log(data)
+            socket.emit('addPartie',data)
+        }
+       // name= prompt("Type your name !")
+        socket.on("msg",(data)=>{
+        console.log(data)
+        p = document.createElement('p')
+        p.innerText= data
+        document.body.append(p)
+        })
+
+        function sendMsg(){
+            msg = document.getElementById('msg').value
+            console.log(msg)
+            data={
+                username: name,
+                message:msg
+            }
+            socket.emit("sendMsg",data)
+        }
+
+        function isTyping(){
+            console.log(name+ " is typing...")
+            socket.emit('isTyping',name+ " is typing...")
+        }
+    </script>
+</body>
+</html>

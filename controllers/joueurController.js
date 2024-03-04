@@ -1,0 +1,12 @@
+var express= require("express")
+var router=express.Router()
+var joueurService=require("../services/joueurService")
+var validation = require('../middleware/validation')
+var {list, attaqueJoueur}=require("../services/joueurService")
+router.get("/add/:pseudo", joueurService.add)
+router.get("/list",list)
+router.get("/attaque/:attaquant/:victime",attaqueJoueur)
+router.put("/update/:id",joueurService.updateJoueur)
+router.get("/delete/:id",joueurService.deleteJoueur)
+router.get('/test',(req,res)=>{res.render('chat')})
+module.exports= router
